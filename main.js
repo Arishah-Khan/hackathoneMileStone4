@@ -1,136 +1,224 @@
-// Toggle edit mode for Name
-function toggleEditName() {
-    var nameElement = document.getElementById("name");
-    var editNameButton = document.getElementById("edit-name");
-    if (nameElement.contentEditable === 'true') {
-        nameElement.contentEditable = 'false';
-        editNameButton.textContent = 'Edit Name';
-    }
-    else {
-        nameElement.contentEditable = 'true';
-        nameElement.focus();
-        editNameButton.textContent = 'Save Name';
+"use strict";
+// Jab window load ho, pehle se stored values ko show kare
+// Skills ko add karne ka function
+// Skills ko display karne ke liye button press ki zarurat nahi hogi agar skills ko auto-save karenge.
+function addMoreSkills() {
+    const skillsContainer = document.getElementById("skillsContainer");
+    const skillField = document.createElement("div");
+    skillField.classList.add("skillField");
+    // Add HTML directly for the new skill input field
+    skillField.innerHTML = `
+        <input type="text" class="skill" placeholder="Skill Name (e.g., JavaScript)" required>
+    `;
+    // Append the newly created skill field to the skills container
+    skillsContainer.appendChild(skillField);
+}
+// Attach the event listener to the "Add Skill" button
+const addSkillButton = document.getElementById("addSkill");
+if (addSkillButton) {
+    addSkillButton.addEventListener("click", addMoreSkills);
+}
+// Function to add more education fields
+function addMoreEducation() {
+    const educationContainer = document.getElementById("educationContainer");
+    const educationField = document.createElement("div");
+    educationField.classList.add("educationField");
+    educationField.innerHTML = `
+        <input type="text" class="degree" placeholder="Degree (e.g., B.Sc. Computer Science)" required>
+        <input type="text" class="institution" placeholder="Institution (e.g., XYZ University)" required>
+        <input type="text" class="gradeYear" placeholder="Graduation Year (e.g., 2024)" required>
+    `;
+    educationContainer.appendChild(educationField);
+}
+// Function to add more work experience fields
+function addMoreExperience() {
+    const experienceContainer = document.getElementById("experienceContainer");
+    const experienceField = document.createElement("div");
+    experienceField.classList.add("experienceField");
+    experienceField.innerHTML = `
+    
+        <input type="text" class="company" placeholder="Company Name (e.g., ABC Crop)" required>
+        <input type="text" class="role" placeholder="Role/Position (e.g., Software Developer)" required>
+        <input type="text" class="experienceYears" placeholder="Years Worked (e.g., 2019-2022)" required>
+    `;
+    experienceContainer.appendChild(experienceField);
+}
+const addEduButton = document.getElementById("addMoreEducation");
+addEduButton?.addEventListener("click", addMoreEducation);
+const addExperienceButton = document.getElementById("addExperience");
+addExperienceButton?.addEventListener("click", addMoreExperience);
+function collectSkills() {
+    const skillFields = document.querySelectorAll("#skillsContainer .skillField"); // Update the selector
+    return Array.from(skillFields).map(field => {
+        const skillName = field.querySelector(".skill")?.value || 'Not provided';
+        return { skillName };
+    });
+}
+function updateSkillsDisplay() {
+    const skillsContainer = document.getElementById("skillsContainer");
+    const skills = collectSkills();
+    skillsContainer.innerHTML = skills.map(skill => `
+         <div id="skillsContainer">
+            <div class="skillField name">
+            <input type="text" class="skill"  value="${skill.skillName}" placeholder="Skill Name (e.g., JavaScript)" id="skills">
+        </div>
+    `).join('');
+}
+// Function to update experience display (for editing resume)
+function updateExperienceDisplay() {
+    const experienceContainer = document.getElementById("experienceContainer");
+    const experiences = collectExperience(); // Collect experience data as an array of objects
+    experienceContainer.innerHTML = experiences.map(exp => `
+
+    <div class="experienceField">
+                <label for="company">Company Name:</label>
+                <input type="text" class="company" value="${exp.company}" placeholder="Company Name (e.g., ABC Crop)" required>
+                <label for="role">Role/Position:</label>
+                <input type="text" class="role" value="${exp.role}" placeholder="Role/Position (e.g., Software Developer)" required>
+                <label for="experienceYears">Years Worked:</label>
+                <input type="text" class="experienceYears"  value="${exp.experienceYears}" placeholder="Years Worked (e.g., 2019-2022)" required>
+            </div>
+
+
+    `).join('');
+}
+function collectExperience() {
+    const experienceFields = document.querySelectorAll("#experienceContainer .experienceField");
+    return Array.from(experienceFields).map(field => {
+        const company = field.querySelector(".company")?.value || 'Not provided';
+        const role = field.querySelector(".role")?.value || 'Not provided';
+        const experienceYears = field.querySelector(".experienceYears")?.value || 'Not provided';
+        return { company, role, experienceYears };
+    });
+}
+// Function to collect education details
+function collectEducation() {
+    const educationFields = document.querySelectorAll("#educationContainer .educationField");
+    return Array.from(educationFields).map(field => {
+        const degree = field.querySelector(".degree")?.value || 'Not provided';
+        const institution = field.querySelector(".institution")?.value || 'Not provided';
+        const gradeYear = field.querySelector(".gradeYear")?.value || 'Not provided';
+        return { degree, institution, gradeYear };
+    });
+}
+function updateEducationDisplay() {
+    const educationContainer = document.getElementById("educationContainer");
+    const education = collectEducation();
+    educationContainer.innerHTML = education.map(item => `
+      <div class="educationField">
+                <label for="degree">Degree:</label>
+                <input type="text" class="degree"  value="${item.degree}" placeholder="Degree (e.g., B.Sc. Computer Science)" required>
+                <label for="institution">Institution:</label>
+                <input type="text" class="institution" value="${item.institution}" placeholder="Institution (e.g., XYZ University)" required>
+                <label for="gradYear">Graduation Year:</label>
+                <input type="text" class="gradeYear" value="${item.gradeYear}" placeholder="Graduation Year (e.g., 2024)" required>
+            </div>`).join('');
+}
+// Function to collect contact details
+function collectContactDetails() {
+    return {
+        email: document.getElementById("contactEmail").value,
+        phone: document.getElementById("contactPhone").value,
+        linkedin: document.getElementById("linkedin").value,
+        github: document.getElementById("github").value,
+        website: document.getElementById("website").value
+    };
+}
+// Function to handle file input change
+function handleFileInputChange(event) {
+    const fileInput = event.target;
+    const file = fileInput.files?.[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const imageUrl = reader.result;
+            const imgPreview = document.getElementById("profileImagePreview");
+            imgPreview.src = imageUrl;
+        };
+        reader.readAsDataURL(file);
     }
 }
-// Toggle edit mode for Front-End Role
-function toggleEditFrontend() {
-    var frontendElement = document.getElementById("frontend");
-    var editFrontendButton = document.getElementById("edit-frontend");
-    if (frontendElement.contentEditable === 'true') {
-        frontendElement.contentEditable = 'false';
-        editFrontendButton.textContent = 'Edit Front-End';
-    }
-    else {
-        frontendElement.contentEditable = 'true';
-        frontendElement.focus();
-        editFrontendButton.textContent = 'Save Front-End';
-    }
-}
-// Toggle edit mode for Profile Image
-function toggleEditImage() {
-    var profileImage = document.getElementById("profile-image");
-    var editImageButton = document.getElementById("edit-image");
-    if (profileImage.getAttribute("contenteditable") === 'true') {
-        profileImage.setAttribute("contenteditable", 'false');
-        editImageButton.textContent = 'Edit Image';
-    }
-    else {
-        profileImage.setAttribute("contenteditable", 'true');
-        editImageButton.textContent = 'Save Image';
-    }
-}
-// About Section
-function toggleAbout() {
-    var toggleAboutBtn = document.getElementById("toggle-about");
-    var shortPara = document.getElementById("short-para");
-    var fullPara = "I hold a Master's degree in Mathematics from Karachi University, which has honed my analytical thinking and problem-solving skills. In addition to my strong mathematical foundation, I am gaining hands-on experience in cutting-edge technologies through the Certified Cloud Applied Generative AI course, part of the Governor Sindh Pakistan Initiative. I am also diving deep into web and mobile app development at Saylani Mass IT Training. Proficient in TypeScript, HTML, and JavaScript, I am passionate about combining my skills in technology and mathematics to contribute to innovative projects.";
-    if (shortPara.innerHTML === fullPara) {
-        shortPara.innerHTML = "I hold a Master's degree in Mathematics from Karachi University, with strong analytical thinking and problem-solving skills. Currently gaining hands-on experience in AI and web development.";
-        toggleAboutBtn.innerText = "Read More";
-    }
-    else {
-        shortPara.innerHTML = fullPara;
-        toggleAboutBtn.innerText = "Show Less";
-    }
-}
-// Edit Short Paragraph
-function toggleEditShortPara() {
-    var shortPara = document.getElementById("short-para");
-    var editShortParaButton = document.getElementById("toggle-edit-short-para");
-    if (shortPara.contentEditable === 'true') {
-        shortPara.contentEditable = 'false';
-        editShortParaButton.textContent = 'Edit';
-    }
-    else {
-        shortPara.contentEditable = 'true';
-        shortPara.focus();
-        editShortParaButton.textContent = 'Save';
-    }
-}
-// Edit Experience Section
-function toggleEditExperience() {
-    var experience = document.getElementById("experience");
-    var editExperienceButton = document.getElementById("toggle-edit-experience");
-    if (experience.contentEditable === 'true') {
-        experience.contentEditable = 'false';
-        editExperienceButton.textContent = 'Edit Experience';
-    }
-    else {
-        experience.contentEditable = 'true';
-        experience.focus();
-        editExperienceButton.textContent = 'Save Experience';
+// Attach event listener to the file input
+const profileImageInput = document.getElementById("profileImage");
+profileImageInput?.addEventListener("change", handleFileInputChange);
+function generatedResume(event) {
+    event.preventDefault();
+    // Collect form values
+    const profileImage = document.getElementById("profileImagePreview").src;
+    const name = document.getElementById("name").value;
+    const subheading = document.getElementById("subheading").value;
+    const profileSummary = document.getElementById("profileSummary").value;
+    // Collect all other data
+    const skills = collectSkills();
+    const education = collectEducation();
+    const experience = collectExperience();
+    const contact = collectContactDetails();
+    // Display the collected information in the resume output section
+    const resumeOutput = document.getElementById("resumeOutput");
+    resumeOutput.innerHTML = `
+        <div>
+            <h1 class="resume changeBg">Resume</h1>
+            ${profileImage ? `<div class="resume"><img src="${profileImage}" alt="Profile Image" style="max-width: 200px; height: auto; border-radius: 50%; margin-bottom: 20px;" class="img"></div>` : ''}
+            <div class="bgColor">
+                <h3 class="javaName">${name}</h3>
+                <h5 class="sub">${subheading}</h5>
+            </div>
+            <h4>Profile Summary</h4>
+            <p class="profile">${profileSummary}</p>
+            <h4>Skills</h4>
+           <p class="profile">${skills.map(skill => skill.skillName).join('<br>')}</p>
+
+            <h4>Education</h4>
+            <p class="profile">${education.map(item => `${item.degree} from ${item.institution} in (${item.gradeYear})`).join('<br>')}</p>
+            <h4>Work Experience</h4>
+           <p class="profile">
+  <p class="profile">
+    <p class="profile">
+    ${experience.map(exp => `I was employed at ${exp.company} as a ${exp.role} during ${exp.experienceYears}.`).join('<br>')}
+</p>
+           
+    
+            <h4>Contact Information</h4>
+            <p class="profile"><strong>Email:</strong> ${contact.email}</p>
+            <p class="profile"><strong>Phone Number:</strong> ${contact.phone}</p>
+            <p class="profile"><strong>LinkedIn:</strong> <a href="${contact.linkedin}" target="_blank">${contact.linkedin}</a></p>
+            <p class="profile"><strong>GitHub:</strong> <a href="${contact.github}" target="_blank">${contact.github}</a></p>
+            <p class="profile"><strong>Website:</strong> <a href="${contact.website}" target="_blank">${contact.website}</a></p>
+            <div class="editBtn">
+            <button class="editResume" onclick="editResume()">Edit Resume</button>
+            </div>
+        </div>
+    `;
+    // Hide the form and show the resume output
+    document.getElementById("resumeForm").style.display = 'none';
+    resumeOutput.style.display = 'block';
+    // Change "Generate Resume" button to "Save Resume"
+    const generateButton = document.querySelector("button[type='submit']");
+    if (generateButton) {
+        generateButton.textContent = 'Save Resume';
     }
 }
-// Toggle visibility of Experience section
-function experienceBtn() {
-    var experienceSection = document.getElementById("experience");
-    var experienceButton = document.getElementById("toggle-experience");
-    if (experienceSection.style.display === 'none') {
-        experienceSection.style.display = 'block';
-        experienceButton.textContent = 'Hide Experience';
-    }
-    else {
-        experienceSection.style.display = 'none';
-        experienceButton.textContent = 'Show Experience';
-    }
-}
-// Edit Projects Section
-function toggleEditProjects() {
-    var projects = document.getElementById("projects");
-    var editProjectsButton = document.getElementById("toggle-projects-edit");
-    if (projects.contentEditable === 'true') {
-        projects.contentEditable = 'false';
-        editProjectsButton.textContent = 'Edit Projects';
-    }
-    else {
-        projects.contentEditable = 'true';
-        projects.focus();
-        editProjectsButton.textContent = 'Save Projects';
-    }
-}
-// Toggle visibility of Projects section
-function projectsBtn() {
-    var projectsSection = document.getElementById("projects");
-    var projectsButton = document.getElementById("toggle-projects");
-    if (projectsSection.style.display === 'none') {
-        projectsSection.style.display = 'block';
-        projectsButton.textContent = 'Hide Projects';
-    }
-    else {
-        projectsSection.style.display = 'none';
-        projectsButton.textContent = 'Show Projects';
-    }
-}
-// Toggle visibility of Education section
-function educationBtn() {
-    var educationSection = document.getElementById("education");
-    var educationButton = document.getElementById("toggle-education");
-    if (educationSection.style.display === 'none') {
-        educationSection.style.display = 'block';
-        educationButton.textContent = 'Hide Education';
-    }
-    else {
-        educationSection.style.display = 'none';
-        educationButton.textContent = 'Show Education';
-    }
+// Attach event listener to the form
+const resumeForm = document.getElementById("resumeForm");
+resumeForm?.addEventListener("submit", generatedResume);
+function editResume() {
+    // Show the form and hide the resume output
+    const form = document.getElementById("resumeForm");
+    const resumeOutput = document.getElementById("resumeOutput");
+    form.style.display = 'block';
+    resumeOutput.style.display = 'none';
+    // Reset the form fields with current resume data
+    const profileImagePreview = document.getElementById("profileImagePreview");
+    const name = document.querySelector(".javaName")?.textContent || '';
+    const subheading = document.querySelector(".sub")?.textContent || '';
+    const profileSummary = document.querySelector(".profile")?.textContent || '';
+    document.getElementById("profileImage").value = '';
+    profileImagePreview.src = '';
+    document.getElementById("name").value = name;
+    document.getElementById("subheading").value = subheading;
+    document.getElementById("profileSummary").value = profileSummary;
+    // Update the skills, education, and experience fields
+    updateSkillsDisplay();
+    updateEducationDisplay();
+    updateExperienceDisplay();
 }

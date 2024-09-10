@@ -1,155 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editable Resume</title>
+    <title>Dynamic Resume Builder</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
 <body>
-    <div class="container">
-        <div class="left">
-            <header>
-                <div class="names">
-                    <h1 id="name" class="myName">Arishah Khan</h1>
-                    <h4 id="frontend" class="frontend">Front-End Developer</h4>
-                </div>
-                <img id="profile-image" src="image/my-removebg-preview.png" alt="Profile Picture" class="img">
-            </header>
-
-            <div class="about">
-                <h2 class="aboutMe">About Me</h2>
-                <p id="short-para">
-                    I hold a Master's degree in Mathematics from Karachi University, with strong analytical thinking and
-                    problem-solving skills. Currently gaining hands-on experience in AI and web development.
-                </p>
-                <button id="toggle-about" onclick="toggleAbout()">Read More</button>
-                <button id="toggle-edit-short-para" onclick="toggleEditShortPara()" class="addBtnEdit">Edit</button>
-            </div>
-
-            <div class="contact">
-                <h3 class="contactMe">Contact Information</h3>
-                <ul class="lists">
-                    <li class="icon"><i class="fas fa-phone"></i> +92-333-444-5555</li>
-                    <li class="icon"><i class="fas fa-envelope"></i> arishahsanaullah78@gmail.com</li>
-                    <li class="icon"><i class="fas fa-map-marker-alt"></i> 123 Main St, City, State, Zip</li>
-                </ul>
-            </div>
-
-            <div class="skills">
-                <h3 class="skillList">Skills</h3>
-                <ul class="lists">
-                    <li>HTML</li>
-                    <li>CSS</li>
-                    <li>JavaScript</li>
-                    <li>TypeScript</li>
-                    <li>Bootstrap</li>
-                    <li>Microsoft PowerPoint</li>
-                    <li>GitHub</li>
-                    <li>Web Design</li>
-                    <li>Web Development</li>
-                </ul>
-            </div>
-
-            <div class="experience">
-                <h3 class="expList">Experience</h3>
-                <div id="experience">
-                    <p class="para">Private Tutor</p>
-                    <p class="para">2021-2023</p>
-                    <p>Provided personalized tutoring for students across multiple subjects, including mathematics,
-                        science, and languages.</p>
-                </div>
-                <button id="toggle-experience" onclick="experienceBtn()">Hide Experience</button>
-                <button id="toggle-edit-experience" onclick="toggleEditExperience()" class="addBtnEdit">Edit Experience</button>
+    <h1>Editable Resume Builder</h1>
+    <form id="resumeForm">
+        <!-- Profile Picture Upload -->
+        <div class="profilePicContainer">
+            <label for="profileImage">Upload Profile Picture:</label>
+            <input type="file" id="profileImage" accept="image/*">
+            <div class="imagePreviewContainer">
+                <img id="profileImagePreview" src="" alt="Profile Image" style="display: none;">
             </div>
         </div>
 
-        <div class="right">
-            <div class="name">
-                <h1 id="name" class="myName">Arishah Khan</h1>
-                <h4 id="frontend" class="frontend">Front-End Developer</h4>
+        <div>
+            <div>
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" placeholder="Full Name" required>
             </div>
-            
-
-            <div class="eduDiv">
-                <h3 class="educationHeading">Education</h3>
-                <div id="education" class="educationSection">
-                    <div class="entry">
-                        <div class="institution">Master's Degree in Mathematics</div>
-                        <div class="institution">Karachi University, Karachi</div>
-                    </div>
-                    <div class="entry">
-                        <div class="institution">Bachelor's Degree in Science</div>
-                        <div class="institution">DJ Sindh Government Science College, Karachi</div>
-                    </div>
-                    <div class="entry">
-                        <div class="institution">Intermediate (Pre-Engineering)</div>
-                        <div class="institution">KMA Girls Degree College, Karachi</div>
-                    </div>
-                    <div class="entry">
-                        <div class="institution">Matriculation</div>
-                        <div class="institution">Al-Hamd Grammar School, Karachi</div>
-                    </div>
-                    <div class="entry">
-                        <div class="institution">Certification in Cloud Applied Generative AI</div>
-                        <div class="institution">Governor Sindh Pakistan Initiative</div>
-                        <div class="institution">Ongoing</div>
-                    </div>
-                    <div class="entry">
-                        <div class="institution">Web and Mobile App Development Program</div>
-                        <div class="institution">Saylani Mass IT Training</div>
-                        <div class="institution">Ongoing</div>
-                    </div>
-                </div>
-                <button id="toggle-education" onclick="educationBtn()">Hide Education</button>
-                <button id="toggle-edit-education" onclick="toggleEditEducation()" class="BtnEdit">Edit Education</button>
-            </div>
-
-            <div class="eduDiv">
-                <h3 class="projectHeading">Projects</h3>
-                <div id="projects">
-                    <div>
-                        <p class="project-title">HTML, CSS, and JavaScript Projects</p>
-                        <ul>
-                            <li class="project"><span>Simple Calculator:</span> A basic calculator with arithmetic
-                                operations. <a href="https://arishah-khan.github.io/Calculator-javascript/"
-                                    target="_blank">View Project</a></li>
-                            <li class="project"><span>Scientific Calculator:</span> An advanced calculator with
-                                trigonometric functions, logarithms, and exponentiation. <a
-                                    href="https://arishah-khan.github.io/Calculator-javascript/" target="_blank">View
-                                    Project</a></li>
-                            <li class="project"><span>My Post Application:</span> A content management app with user
-                                authentication and post management. <a
-                                    href="https://arishah-khan.github.io/My-Post/" target="_blank">View Project</a>
-                            </li>
-                            <li class="project"><span>To-Do App:</span> A task management app with TypeScript and React.
-                                <a href="https://arishah-khan.github.io/Todo-App/" target="_blank">View Project</a></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <p class="project-title">HTML and CSS Projects</p>
-                        <ul>
-                            <li class="project"><span>HTML/CSS Website:</span> A pixel-perfect static website based on
-                                Figma design. <a href="https://arishah-khan.github.io/HTML-CSS-BOOTSTRAP-Hackhathon/"
-                                    target="_blank">View Project</a> | <a
-                                    href="https://arishah-khan.github.io/Assignment-4-bootsrap/" target="_blank">View
-                                    Project</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <button id="toggle-projects" onclick="projectsBtn()">Hide Projects</button>
-                <button id="toggle-projects-edit" onclick="toggleEditProjects()" class="BtnEdit">Edit Projects</button>
+            <div>
+                <label for="subheading">Profession:</label>
+                <input type="text" id="subheading" placeholder="Enter your profession (e.g., Doctor, Engineer, Teacher)" required>
             </div>
         </div>
-    </div>
+
+        <h2>Skills</h2>
+        <div id="skillsContainer">
+            <div class="skillField">
+            <label for="skills">Skill:</label>
+            <input type="text" class="skill" placeholder="Skill Name (e.g., JavaScript)" id="skills">
+        </div>
+        </div>
+        <button type="button" id="addSkill">Add More Skills</button>
+
+        <h2>Profile Summary</h2>
+        <label for="profileSummary">Summary:</label>
+        <textarea id="profileSummary" placeholder="Write a brief profile summary" rows="4" required class="name"></textarea>
+
+        <!-- Dynamic Education Section -->
+        <h2>Education</h2>
+        <div id="educationContainer">
+            <!-- Initial Education Field -->
+            <div class="educationField">
+                <label for="degree">Degree:</label>
+                <input type="text" class="degree" placeholder="Degree (e.g., B.Sc. Computer Science)" required>
+                <label for="institution">Institution:</label>
+                <input type="text" class="institution" placeholder="Institution (e.g., XYZ University)" required>
+                <label for="gradYear">Graduation Year:</label>
+                <input type="text" class="gradeYear" placeholder="Graduation Year (e.g., 2024)" required>
+            </div>
+        </div>
+        <button type="button" id="addMoreEducation">Add More Education</button>
+
+        <h2>Work Experience</h2>
+        <div id="experienceContainer">
+            <!-- Initial Experience Field -->
+            <div class="experienceField">
+                <label for="company">Company Name:</label>
+                <input type="text" class="company" placeholder="Company Name (e.g., ABC Crop)" required>
+                <label for="role">Role/Position:</label>
+                <input type="text" class="role" placeholder="Role/Position (e.g., Software Developer)" required>
+                <label for="experienceYears">Years Worked:</label>
+                <input type="text" class="experienceYears" placeholder="Years Worked (e.g., 2019-2022)" required>
+            </div>
+        </div>
+        <button type="button" id="addExperience">Add More Experience</button>
+
+        <h2>Contact Me</h2>
+        <div id="contactContainer">
+            <div class="contactField">
+                <label for="contactEmail">Email:</label>
+                <input type="email" id="contactEmail" placeholder="Email (e.g., yourname@example.com)" required>
+            </div>
+            <div class="contactField">
+                <label for="contactPhone">Phone Number:</label>
+                <input type="text" id="contactPhone" placeholder="Phone Number (e.g., +1-234-567-8901)" required>
+            </div>
+            <div class="contactField">
+                <label for="linkedin">LinkedIn Profile URL:</label>
+                <input type="url" id="linkedin" placeholder="LinkedIn Profile URL (e.g., https://linkedin.com/in/yourprofile)">
+            </div>
+            <div class="contactField">
+                <label for="github">GitHub Profile URL:</label>
+                <input type="url" id="github" placeholder="GitHub Profile URL (e.g., https://github.com/yourusername)">
+            </div>
+            <div class="contactField">
+                <label for="website">Personal Website or Portfolio URL:</label>
+                <input type="url" id="website" placeholder="Personal Website or Portfolio URL (e.g., https://yourwebsite.com)">
+            </div>
+        </div>
+
+        <div class="btn">
+            <button type="submit" onclick="generatedResume()">Generate Resume</button>
+        </div>
+    </form>
+
+    <div id="resumeOutput" style="display: none;"></div>
 
     <script src="main.js"></script>
 </body>
-
 </html>
