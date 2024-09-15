@@ -1,18 +1,3 @@
-// Jab window load ho, pehle se stored values ko show kare
-
-
-// Skills ko add karne ka function
-
-
-// Skills ko display karne ke liye button press ki zarurat nahi hogi agar skills ko auto-save karenge.
-
-
-
-
-
-
-
-
 function addMoreSkills(): void {
     const skillsContainer = document.getElementById("skillsContainer") as HTMLDivElement;
 
@@ -46,7 +31,7 @@ function addMoreEducation(): void {
     educationField.innerHTML = `
         <input type="text" class="degree" placeholder="Degree (e.g., B.Sc. Computer Science)" required>
         <input type="text" class="institution" placeholder="Institution (e.g., XYZ University)" required>
-        <input type="text" class="gradeYear" placeholder="Graduation Year (e.g., 2024)" required>
+        <input type="number" class="gradeYear" placeholder="Graduation Year (e.g., 2024)" required>
     `;
 
     educationContainer.appendChild(educationField);
@@ -63,7 +48,7 @@ function addMoreExperience(): void {
     
         <input type="text" class="company" placeholder="Company Name (e.g., ABC Crop)" required>
         <input type="text" class="role" placeholder="Role/Position (e.g., Software Developer)" required>
-        <input type="text" class="experienceYears" placeholder="Years Worked (e.g., 2019-2022)" required>
+        <input type="number" class="experienceYears" placeholder="Years Worked (e.g., 2019-2022)" required>
     `;
 
     experienceContainer.appendChild(experienceField);
@@ -109,7 +94,7 @@ function updateExperienceDisplay(): void {
                 <label for="role">Role/Position:</label>
                 <input type="text" class="role" value="${exp.role}" placeholder="Role/Position (e.g., Software Developer)" required>
                 <label for="experienceYears">Years Worked:</label>
-                <input type="text" class="experienceYears"  value="${exp.experienceYears}" placeholder="Years Worked (e.g., 2019-2022)" required>
+                <input type="number" class="experienceYears"  value="${exp.experienceYears}" placeholder="Years Worked (e.g., 2019-2022)" required>
             </div>
 
 
@@ -148,7 +133,7 @@ function updateEducationDisplay(): void {
                 <label for="institution">Institution:</label>
                 <input type="text" class="institution" value="${item.institution}" placeholder="Institution (e.g., XYZ University)" required>
                 <label for="gradYear">Graduation Year:</label>
-                <input type="text" class="gradeYear" value="${item.gradeYear}" placeholder="Graduation Year (e.g., 2024)" required>
+                <input type="number" class="gradeYear" value="${item.gradeYear}" placeholder="Graduation Year (e.g., 2024)" required>
             </div>`).join('');
 }
 
