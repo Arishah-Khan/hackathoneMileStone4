@@ -199,11 +199,12 @@ function generatedResume(event) {
 
 <div>
 <h3 class="setWidth">Contact Information</h3>
-            <p class="sizeChange"><strong>Email:</strong> ${contact.email}</p>
-            <p class="sizeChange"><strong>Phone Number:</strong> ${contact.phone}</p>
-            <p class="sizeChange"><strong>LinkedIn:</strong> <a href="${contact.linkedin}" target="_blank">${contact.linkedin}</a></p>
-            <p class="sizeChange"><strong>GitHub:</strong> <a href="${contact.github}" target="_blank">${contact.github}</a></p>
-            <p class="sizeChange"><strong>Website:</strong> <a href="${contact.website}" target="_blank">${contact.website}</a></p></div>
+           <p class="sizeChange"><strong><i class="fas fa-envelope"></i> Email:</strong> ${contact.email}</p>
+<p class="sizeChange"><strong><i class="fas fa-phone"></i> Phone Number:</strong> ${contact.phone}</p>
+<p class="sizeChange"><strong><i class="fab fa-linkedin"></i> LinkedIn:</strong> <a href="${contact.linkedin}" target="_blank">${contact.linkedin}</a></p>
+<p class="sizeChange"><strong><i class="fab fa-github"></i> GitHub:</strong> <a href="${contact.github}" target="_blank">${contact.github}</a></p>
+<p class="sizeChange"><strong><i class="fas fa-globe"></i> Website:</strong> <a href="${contact.website}" target="_blank">${contact.website}</a></p>
+</div>
 
             <div>
                 <h3 class="setWidth">Skills</h3>
