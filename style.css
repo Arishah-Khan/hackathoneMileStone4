@@ -145,15 +145,25 @@ h2 {
     width: 70%;
     padding: 12px;
   }
+  h1 {
+ 
+    font-size: 30px; 
+  }
 
   button {
-    padding: 10px 20px;
+    padding: 8px 15px;
     font-size: 1rem; /* Slightly smaller font size for smaller screens */
   }
 
   h4 {
     width: 100%;
     font-size: 1.5rem; /* Adjusted font size */
+  }
+  h2{
+    font-size: 20px;
+  }
+  label{
+    font-size: 16px;
   }
 
 }
@@ -165,6 +175,16 @@ h2 {
   textarea {
     width: 90%;
     padding: 12px;
+  }
+  h2{
+    font-size: 16px;
+  }
+  label{
+    font-size: 12px;
+  }
+  button {
+    padding: 6px 12px;
+    font-size: 12px; /* Slightly smaller font size for smaller screens */
   }
 }
 #skillsList {
@@ -296,12 +316,12 @@ h4 {
   width: 100%;
   background-color: #fff;
   color: #464543;
-  font-size: 1rem; /* Reduced font size */
+  font-size: 20px;
   font-weight: bold;
   text-align: center;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  padding: 5px; /* Reduced padding */
+  padding: 5px;
 }
 
 .setDiv {
@@ -338,7 +358,7 @@ h4 {
 }
 
 .sizeChange {
-  font-size: 0.75rem; /* Reduced font size */
+  font-size: 16px; /* Reduced font size */
   font-weight: 400;
   color: #d7dcde;
 }
@@ -392,13 +412,16 @@ p a:hover {
   width: 50%;
   color: #fff;
   background-color: #464543;
-  font-size: 1rem; /* Reduced font size */
+  font-size: 22px;
   font-weight: bold;
   text-align: start;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   padding: 5px; /* Reduced padding */
   margin-bottom: 5px; /* Reduced margin */
+}
+.sub{
+  font-size: 20px;
 }
 
 .degreeStyle {
@@ -438,7 +461,23 @@ p a:hover {
   }
 
   .nameHeading {
-    font-size: 1.5rem; /* Further reduced font size */
+    font-size: 1.3rem; /* Further reduced font size */
+  }
+  .editResume{
+    padding: 8px 15px;
+    font-size: 14px;
+    margin-top: 15px;
+  }
+
+  .nameHeadingStyle {
+    width: 60%;
+    font-size: 14px; /* Reduced font size */
+    font-weight: bold;
+    text-align: start;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 5px; /* Reduced padding */
+    margin-bottom: 5px; /* Reduced margin */
   }
 
   .sub {
@@ -453,8 +492,58 @@ p a:hover {
   .sizeChange {
     font-size: 0.625rem; /* Further reduced font size */
   }
-  img {
-    max-width: 150px;
+  .img {
+    width: 130px;
    
+  }
+  .setWidth{
+    font-size: 13px; 
+    width: 90%;
+  }
+}
+
+@media (max-width:481px) {
+  .img {
+    width: 80px;
+    margin-top: 10px;
+   
+  }
+  .left, .right {
+    padding: 5px; /* Further reduced padding */
+  }
+  #resumeOutput{
+    padding: 10px;
+  }
+  .setWidth{
+    font-size: 10px; 
+    width: 90%;
+  }
+  .skill-item{
+    font-size: 12px;
+  }
+  .nameHeading{
+    font-size: 16px;
+    width: 90%;
+  }
+  .sizeChange{
+    font-size: 8px;
+  }
+  .sub{
+    font-size: 12px;
+  }
+  .nameHeadingStyle{
+    font-size: 12px;
+  }
+  .degreeStyle,
+  .instituteStyle {
+    font-size: 10px;
+  }
+  .diamond{
+    width: 6px;
+    height: 6px;
+  }
+  h1 {
+ 
+    font-size: 24px; 
   }
 }
