@@ -1,6 +1,18 @@
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', sans-serif;
+}
+p {
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #333;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: rgb(237, 232, 232); /* Light gray background for a cleaner look */
+  font-family: 'Lato', sans-serif;
+  background-color: rgb(237, 232, 232); 
   color: #333;
   margin: 0;
   padding: 0;
@@ -10,17 +22,17 @@ body {
 h1 {
   text-align: center;
   margin: 30px 0;
-  color: #003674; /* Deep blue color for the main heading */
-  font-size: 2.5rem; /* Larger font size for emphasis */
+  color: #464543; 
+  font-size: 2.5rem; 
 }
 
 form {
   max-width: 900px;
   margin: 0 auto;
-  background: #ffffff; /* White background for form */
+  background: #ffffff; 
   padding: 25px;
   border-radius: 8px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* Enhanced shadow for a modern look */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2); 
 }
 
 label {
@@ -28,7 +40,7 @@ label {
   margin-bottom: 8px;
   font-weight: bold;
   color: #333;
-  font-size: 1.1rem; /* Slightly larger font size */
+  font-size: 1.1rem; 
 }
 
 input[type="text"],
@@ -36,10 +48,10 @@ input[type="number"],
 input[type="email"],
 input[type="url"],
 textarea {
-  width: 50%; /* Full width for better responsiveness */
+  width: 50%; 
   padding: 14px;
   margin-bottom: 15px;
-  border: 2px solid #8aa4ae;
+  border: 2px solid #bdbdbc;
   border-radius: 10px;
   box-shadow: inset 0 1px 3px rgba(191, 150, 150, 0.1); /* Subtle inner shadow */
   transition: border-color 0.3s, box-shadow 0.3s;
@@ -60,7 +72,7 @@ input[type="text"]:hover,
 input[type="email"]:hover,
 input[type="url"]:hover,
 textarea:hover {
-  border: 2px solid #003674;
+  border: 2px solid #464543;
   background-color: #f0f4f8; /* Very light blue background */
 }
 
@@ -69,7 +81,7 @@ textarea {
 }
 
 button {
-  background-color: #0056b3; /* Deep blue color for buttons */
+  background-color: #464543; /* Deep blue color for buttons */
   color: white;
   border: 2px solid ;
   padding: 12px 20px;
@@ -86,14 +98,14 @@ button:hover {
 }
 
 button:active {
-  background-color: #003674; /* Even darker blue when clicked */
+  background-color: #4e4e46; /* Even darker blue when clicked */
 }
 
 #resumeOutput {
   max-width: 900px;
   margin: 30px auto;
   padding: 25px;
-  background: #f0cffa; /* White background for resume output */
+  background: #bdbdbc; /* White background for resume output */
   border-radius: 8px;
   box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* Enhanced shadow for consistency */
 }
@@ -103,8 +115,9 @@ img {
   height: auto;
   border-radius: 50%;
   margin-bottom: 20px;
-  border: 4px solid #620074cf; /* Thicker border around the image */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+  border: 4px solid white; /* Thicker border around the image */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  background-color: #d3d3d3; 
 }
 
 h2 {
@@ -143,17 +156,17 @@ h2 {
     font-size: 1.5rem; /* Adjusted font size */
   }
 
-  .profile {
-    font-size: 1rem; /* Responsive font size */
-  }
-
-  .bgColor {
-    background-color: #003674;
-    padding: 5px 10px;
-    margin-bottom: 10px;
+}
+@media  (max-width: 481px){
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="url"],
+  textarea {
+    width: 90%;
+    padding: 12px;
   }
 }
-
 #skillsList {
   list-style-type: none;
   padding: 0;
@@ -193,9 +206,9 @@ h2 {
   display: block; /* Makes the file input block-level */
   margin: 0 auto; /* Center the file input */
   padding: 12px; /* Padding inside the file input */
-  border: 2px solid #5c93ab; /* Blue border */
+  border: 2px solid #464543; /* Blue border */
   border-radius: 5px; /* Rounded corners */
-  background-color: #f8f9fa; /* Light background color */
+  background-color: #e8e8e6; /* Light background color */
   cursor: pointer; /* Pointer cursor on hover */
 }
 
@@ -209,7 +222,7 @@ h2 {
   max-width: 200px; /* Maximum width of the image */
   height: auto; /* Maintain aspect ratio */
   border-radius: 50%; /* Circular border */
-  border: 4px solid #007bff; /* Thicker blue border around the image */
+  border: 4px solid #bdbdbc; /* Thicker blue border around the image */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow effect */
 }
 
@@ -233,29 +246,6 @@ h2 {
   cursor: pointer;
 }
 
-.javaName {
-  color: #000000;
-  font-weight: bold;
-  text-align: center;
-  font-size: 2rem; /* Larger font size */
-  color: #ddd;
-}
-
-.sub {
-  font-size: 1.5rem; /* Responsive font size */
-  color: white;
-  font-weight: bold;
-  margin: 0px;
-  text-align: center;
-}
-
-.bgColor {
-  background-color: #620074cf;
-  padding: 7px 15px;
-  margin-bottom: 15px;
-  border-radius: 10px;
-}
-
 h4 {
   font-size: 1.5rem; /* Responsive font size */
   background-color: #620074cf;
@@ -272,17 +262,7 @@ h4 {
     font-size: 1.25rem; /* Adjusted font size for smaller screens */
   }
 
-  .profile {
-    font-size: 1rem; /* Responsive font size */
-  }
-
-  .bgColor {
-    padding: 5px 10px;
-    margin-bottom: 10px;
-  }
-  .javaName{
-    font-size: 1.5rem; 
-  }
+  
   .sub{
     font-size: 1.25rem; 
   }
@@ -290,4 +270,191 @@ h4 {
 
 .editBtn{
   text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px; /* Reduced padding */
+  border-radius: 10px;
+}
+
+.left {
+  flex: 1;
+  padding: 20px; /* Reduced padding */
+  background-color: #464543;
+  color: #fff;
+}
+
+.right {
+  flex: 2;
+  padding: 10px; /* Reduced padding */
+  background-color: #fff;
+}
+
+.setWidth {
+  width: 100%;
+  background-color: #fff;
+  color: #464543;
+  font-size: 1rem; /* Reduced font size */
+  font-weight: bold;
+  text-align: center;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 5px; /* Reduced padding */
+}
+
+.setDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Reduced spacing */
+  margin-bottom: 5px; /* Reduced margin */
+  position: relative;
+  font-size: 0.875rem; /* Reduced font size */
+}
+
+.circle {
+  width: 6px; /* Reduced size */
+  height: 6px; /* Reduced size */
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px; /* Reduced margin */
+}
+
+.line {
+  width: 1px;
+  height: 20px; /* Reduced height */
+  background-color: white;
+  position: absolute;
+  left: 3px; /* Adjusted for smaller circle */
+  top: 4px; /* Adjusted for smaller circle */
+}
+
+.sizeChange {
+  font-size: 0.75rem; /* Reduced font size */
+  font-weight: 400;
+  color: #d7dcde;
+}
+
+p a {
+  color: #b0b0ae; /* Light contrast for #464543 */
+  text-decoration: none;
+}
+
+p a:hover {
+  color: #b0b0ae;
+  text-decoration: underline;
+}
+
+.nameHeading {
+  font-weight: bold;
+  text-align: center;
+  font-size: 2rem; /* Reduced font size */
+  color: #ddd;
+  background-color: #464543;
+  padding: 5px; /* Reduced padding */
+  margin-bottom: 5px; /* Space between heading and line */
+  width: 70%;
+  display: inline-block;
+}
+
+.styleline {
+  width: 100%;
+  height: 1px; /* Reduced height */
+  background-color: #464543; 
+}
+
+.sub {
+  font-size: 1rem; /* Reduced font size */
+  font-weight: bold;
+  margin: 0px;
+  text-align: center;
+  color: #464543;
+  width: 70%;
+  padding-top: 5px; /* Reduced padding */
+  padding-bottom: 10px; /* Reduced padding */
+}
+
+.bgColor {
+  padding: 5px 0; /* Reduced padding */
+  margin-bottom: 5px; /* Reduced margin */
+  margin-top: 10px; /* Reduced margin */
+}
+
+.nameHeadingStyle {
+  width: 50%;
+  color: #fff;
+  background-color: #464543;
+  font-size: 1rem; /* Reduced font size */
+  font-weight: bold;
+  text-align: start;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 5px; /* Reduced padding */
+  margin-bottom: 5px; /* Reduced margin */
+}
+
+.degreeStyle {
+  color: #464543;
+  font-size: 1rem; /* Reduced font size */
+  font-weight: bold;
+}
+
+.instituteStyle {
+  color: #464543;
+  font-size: 0.875rem; /* Reduced font size */
+  font-weight: 500;
+  margin-left: 10px; /* Reduced margin */
+}
+
+.educationSection {
+  padding: 10px; /* Reduced padding */
+}
+
+.diamond {
+  width: 8px; /* Reduced width */
+  height: 8px; /* Reduced height */
+  background-color: #464543; /* Color of the diamond */
+  display: inline-block; /* Ensure it's inline */
+  transform: rotate(45deg); /* Rotate to make it diamond shape */
+  margin-right: 5px; /* Reduced spacing */
+}
+
+/* Media Queries for Further Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 5px; /* Further reduced padding for smaller screens */
+  }
+
+  .left, .right {
+    padding: 10px; /* Further reduced padding */
+  }
+
+  .nameHeading {
+    font-size: 1.5rem; /* Further reduced font size */
+  }
+
+  .sub {
+    font-size: 0.875rem; /* Further reduced font size */
+  }
+
+  .degreeStyle,
+  .instituteStyle {
+    font-size: 0.875rem; /* Further reduced font size */
+  }
+
+  .sizeChange {
+    font-size: 0.625rem; /* Further reduced font size */
+  }
+  img {
+    max-width: 150px;
+   
+  }
 }

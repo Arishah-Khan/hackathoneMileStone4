@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Resume Builder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
     <h1>Editable Resume Builder</h1>
@@ -67,6 +71,9 @@
                 <input type="text" class="role" placeholder="Role/Position (e.g., Software Developer)" required>
                 <label for="experienceYears">Years Worked:</label>
                 <input type="number" class="experienceYears" placeholder="Years Worked (e.g., 2019-2022)" required>
+                <label for="experienceDes">Description:</label>
+                <textarea type="textarea" placeholder="Summarize your experience at [Company Name] and describe your role." rows="4" required class="experienceDes"></textarea>
+
             </div>
         </div>
         <button type="button" id="addExperience">Add More Experience</button>

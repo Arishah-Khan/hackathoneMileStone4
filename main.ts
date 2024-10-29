@@ -22,17 +22,22 @@ if (addSkillButton) {
 
 
 // Function to add more education fields
-function addMoreEducation(): void {
+function addMoreEducation() {
     const educationContainer = document.getElementById("educationContainer") as HTMLDivElement;
 
     const educationField = document.createElement("div");
     educationField.classList.add("educationField");
 
     educationField.innerHTML = `
-        <input type="text" class="degree" placeholder="Degree (e.g., B.Sc. Computer Science)" required>
-        <input type="text" class="institution" placeholder="Institution (e.g., XYZ University)" required>
-        <input type="number" class="gradeYear" placeholder="Graduation Year (e.g., 2024)" required>
-    `;
+    <label for="degree">Degree:</label>
+    <input type="text" class="degree" id="degree" placeholder="Degree (e.g., B.Sc. Computer Science)" required>
+
+    <label for="institution">Institution:</label>
+    <input type="text" class="institution" id="institution" placeholder="Institution (e.g., XYZ University)" required>
+
+    <label for="gradeYear">Graduation Year:</label>
+    <input type="number" class="gradeYear" id="gradeYear" placeholder="Graduation Year (e.g., 2024)" required>
+`;
 
     educationContainer.appendChild(educationField);
 }
@@ -45,34 +50,40 @@ function addMoreExperience(): void {
     experienceField.classList.add("experienceField");
 
     experienceField.innerHTML = `
-    
-        <input type="text" class="company" placeholder="Company Name (e.g., ABC Crop)" required>
-        <input type="text" class="role" placeholder="Role/Position (e.g., Software Developer)" required>
-        <input type="number" class="experienceYears" placeholder="Years Worked (e.g., 2019-2022)" required>
-    `;
+    <label for="company">Company Name:</label>
+    <input type="text" class="company" id="company" placeholder="Company Name (e.g., ABC Corp)" required>
+
+    <label for="role">Role/Position:</label>
+    <input type="text" class="role" id="role" placeholder="Role/Position (e.g., Software Developer)" required>
+
+    <label for="experienceYears">Years Worked:</label>
+    <input type="number" class="experienceYears" id="experienceYears" placeholder="Years Worked (e.g., 2019-2022)" required>
+
+    <label for="experienceDes">Experience Description:</label>
+    <textarea id="experienceDes" placeholder="Summarize your experience at [Company Name] and describe your role." rows="4" required class="experienceDes"></textarea>
+`;
 
     experienceContainer.appendChild(experienceField);
 }
 
-const addEduButton = document.getElementById("addMoreEducation") as HTMLButtonElement;
-addEduButton?.addEventListener("click", addMoreEducation);
+
 
 const addExperienceButton = document.getElementById("addExperience") as HTMLButtonElement;
 addExperienceButton?.addEventListener("click", addMoreExperience);
 
 
-function collectSkills(): { skillName: string}[] {
+function collectSkills(): { skillName: string }[] {
     const skillFields = document.querySelectorAll("#skillsContainer .skillField"); // Update the selector
     return Array.from(skillFields).map(field => {
         const skillName = (field.querySelector(".skill") as HTMLInputElement)?.value || 'Not provided';
-        return { skillName};
+        return { skillName };
     });
 }
 
 
 function updateSkillsDisplay(): void {
     const skillsContainer = document.getElementById("skillsContainer") as HTMLDivElement;
-    const skills = collectSkills(); 
+    const skills = collectSkills();
 
     skillsContainer.innerHTML = skills.map(skill => `
          <div id="skillsContainer">
@@ -89,52 +100,77 @@ function updateExperienceDisplay(): void {
     experienceContainer.innerHTML = experiences.map(exp => `
 
     <div class="experienceField">
-                <label for="company">Company Name:</label>
-                <input type="text" class="company" value="${exp.company}" placeholder="Company Name (e.g., ABC Crop)" required>
-                <label for="role">Role/Position:</label>
-                <input type="text" class="role" value="${exp.role}" placeholder="Role/Position (e.g., Software Developer)" required>
-                <label for="experienceYears">Years Worked:</label>
-                <input type="number" class="experienceYears"  value="${exp.experienceYears}" placeholder="Years Worked (e.g., 2019-2022)" required>
-            </div>
+    <label for="company">Company Name:</label>
+    <input type="text" id="company" class="company" value="${exp.company}" placeholder="Company Name (e.g., ABC Corp)" required>
+
+    <label for="role">Role/Position:</label>
+    <input type="text" id="role" class="role" value="${exp.role}" placeholder="Role/Position (e.g., Software Developer)" required>
+
+    <label for="experienceYears">Years Worked:</label>
+    <input type="number" id="experienceYears" class="experienceYears" value="${exp.experienceYears}" placeholder="Years Worked (e.g., 2019-2022)" required>
+
+    <label for="experienceDes">Experience Description:</label>
+    <textarea id="experienceDes" placeholder="Summarize your experience at [Company Name] and describe your role." rows="4" required class="experienceDes">${exp.experienceDes}</textarea>
+</div>
+
 
 
     `).join('');
 }
 
 
-function collectExperience(): { company: string; role: string; experienceYears: string }[] {
+function collectExperience(): { company: string; role: string; experienceYears: string; experienceDes: string }[] {
     const experienceFields = document.querySelectorAll("#experienceContainer .experienceField");
     return Array.from(experienceFields).map(field => {
         const company = (field.querySelector(".company") as HTMLInputElement)?.value || 'Not provided';
         const role = (field.querySelector(".role") as HTMLInputElement)?.value || 'Not provided';
         const experienceYears = (field.querySelector(".experienceYears") as HTMLInputElement)?.value || 'Not provided';
-        return { company, role, experienceYears };
+        const experienceDes = (field.querySelector(".experienceDes") as HTMLTextAreaElement)?.value || 'Not provided';
+        return { company, role, experienceYears, experienceDes };
     });
 }
 
 // Function to collect education details
+
+
+
+
+
+function updateEducationDisplay(): void {
+    const education = collectEducation();
+    const resumeOutput = document.getElementById("resumeOutput") as HTMLDivElement;
+
+    // Clear the previous display
+    resumeOutput.innerHTML = ''; // Clear previous entries
+
+    // Map over education data to create new display elements
+    education.forEach(item => {
+        const div = document.createElement("div");
+        div.classList.add("educationField");
+        div.innerHTML = `
+            <span class="degreeStyle">${item.degree}</span><br>
+            <span class="instituteStyle">${item.institution}</span><br>
+            <span class="instituteStyle">(${item.gradeYear})</span>
+            <div class="line"></div> <!-- Optional line separator -->
+        `;
+        resumeOutput.appendChild(div);
+    });
+
+}
+
 function collectEducation(): { degree: string; institution: string; gradeYear: string }[] {
     const educationFields = document.querySelectorAll("#educationContainer .educationField");
     return Array.from(educationFields).map(field => {
-        const degree = (field.querySelector(".degree") as HTMLInputElement)?.value || 'Not provided';
-        const institution = (field.querySelector(".institution") as HTMLInputElement)?.value || 'Not provided';
-        const gradeYear = (field.querySelector(".gradeYear") as HTMLInputElement)?.value || 'Not provided';
+        const degreeInput = field.querySelector(".degree") as HTMLInputElement;
+        const institutionInput = field.querySelector(".institution") as HTMLInputElement;
+        const gradeYearInput = field.querySelector(".gradeYear") as HTMLInputElement;
+
+        const degree = degreeInput ? degreeInput.value : 'Not provided';
+        const institution = institutionInput ? institutionInput.value : 'Not provided';
+        const gradeYear = gradeYearInput ? gradeYearInput.value : 'Not provided';
+
         return { degree, institution, gradeYear };
     });
-}
-
-function updateEducationDisplay(): void {
-    const educationContainer = document.getElementById("educationContainer") as HTMLDivElement;
-    const education = collectEducation();
-    educationContainer.innerHTML = education.map(item => `
-      <div class="educationField">
-                <label for="degree">Degree:</label>
-                <input type="text" class="degree"  value="${item.degree}" placeholder="Degree (e.g., B.Sc. Computer Science)" required>
-                <label for="institution">Institution:</label>
-                <input type="text" class="institution" value="${item.institution}" placeholder="Institution (e.g., XYZ University)" required>
-                <label for="gradYear">Graduation Year:</label>
-                <input type="number" class="gradeYear" value="${item.gradeYear}" placeholder="Graduation Year (e.g., 2024)" required>
-            </div>`).join('');
 }
 
 
@@ -149,6 +185,13 @@ function collectContactDetails(): { email: string; phone: string; linkedin: stri
         website: (document.getElementById("website") as HTMLInputElement).value
     };
 }
+
+
+const addEduButton = document.getElementById("addMoreEducation");
+addEduButton?.addEventListener("click", () => {
+    addMoreEducation();
+    updateEducationDisplay(); // Update display after adding
+});
 
 // Function to handle file input change
 function handleFileInputChange(event: Event): void {
@@ -174,7 +217,7 @@ profileImageInput?.addEventListener("change", handleFileInputChange);
 
 function generatedResume(event: Event): void {
 
-    
+
     event.preventDefault();
 
     // Collect form values
@@ -192,38 +235,94 @@ function generatedResume(event: Event): void {
     // Display the collected information in the resume output section
     const resumeOutput = document.getElementById("resumeOutput") as HTMLDivElement;
     resumeOutput.innerHTML = `
+        <div class="container">
+        <div class="left">
+
         <div>
-            <h1 class="resume changeBg">Resume</h1>
-            ${profileImage ? `<div class="resume"><img src="${profileImage}" alt="Profile Image" style="max-width: 200px; height: auto; border-radius: 50%; margin-bottom: 20px;" class="img"></div>` : ''}
-            <div class="bgColor">
-                <h3 class="javaName">${name}</h3>
+         ${profileImage ? `<div class="resume"><img src="${profileImage}" alt="Profile Image" style="max-width: 200px; height: auto; border-radius: 50%; margin-bottom: 20px;" class="img"></div>` : ''}</div>
+
+
+
+<div>
+ <h3 class="setWidth">About Me</h3>
+            <p class="sizeChange">${profileSummary}</p>
+</div>
+
+
+<div>
+<h3 class="setWidth">Contact Information</h3>
+            <p class="sizeChange"><strong>Email:</strong> ${contact.email}</p>
+            <p class="sizeChange"><strong>Phone Number:</strong> ${contact.phone}</p>
+            <p class="sizeChange"><strong>LinkedIn:</strong> <a href="${contact.linkedin}" target="_blank">${contact.linkedin}</a></p>
+            <p class="sizeChange"><strong>GitHub:</strong> <a href="${contact.github}" target="_blank">${contact.github}</a></p>
+            <p class="sizeChange"><strong>Website:</strong> <a href="${contact.website}" target="_blank">${contact.website}</a></p></div>
+
+            <div>
+                <h3 class="setWidth">Skills</h3>
+<p class="setDiv">
+  ${skills.map((skill, index) => `
+    <div class="skill-item">
+      <span class="circle"></span>
+      ${skill.skillName}
+      ${index < skills.length - 1 ? '<span class="line"></span>' : ''}
+    </div>
+  `).join('')}
+</p>   </div>
+
+
+         </div>
+         <div class="right">
+         <div class="bgColor">
+                <h3 class="nameHeading">${name}</h3>
+                <div class="styleline"></div>
                 <h5 class="sub">${subheading}</h5>
             </div>
-            <h4>Profile Summary</h4>
-            <p class="profile">${profileSummary}</p>
-            <h4>Skills</h4>
-           <p class="profile">${skills.map(skill => skill.skillName).join('<br>')}</p>
+            <div class="paddingSet">
+            <div>
+<h3 class="nameHeadingStyle">Education</h3>
+<div class="styleline"></div>
 
-            <h4>Education</h4>
-            <p class="profile">${education.map(item => `${item.degree} from ${item.institution} in (${item.gradeYear})`).join('<br>')}</p>
-            <h4>Work Experience</h4>
-           <p class="profile">
-  <p class="profile">
-    <p class="profile">
-    ${experience.map(exp => `I was employed at ${exp.company} as a ${exp.role} during ${exp.experienceYears}.`).join('<br>')}
-</p>
-           
+        <div class="educationSection">
+                            ${education.map((item) => `
+                                <div class="educationField">
+                                <span class="diamond"></span>
+                                    <span class="degreeStyle">${item.degree}</span><br>
+                                    <span class="instituteStyle">${item.institution}</span><br>
+                                    <span class="instituteStyle">${item.gradeYear}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+</div>
+
+<div>
+                       <h3 class="nameHeadingStyle">Work Experience</h3>
+<div class="styleline"></div>
+
+<div class="educationSection">
+    ${experience.map((exp) => `
+        <div class="educationField">
+<span class="diamond"></span>
+            <span class="degreeStyle">${exp.company}</span><br>
+            <span class="instituteStyle">${exp.role}</span><br>
+            <span class="instituteStyle">${exp.experienceYears}</span><br>
+            <span class="instituteStyle">${exp.experienceDes}</span>
+
+        </div>
+    `).join('')}
+</div>
+
+
+            </div>
+         </div>
+            
+            </div>
+           </div>
     
-            <h4>Contact Information</h4>
-            <p class="profile"><strong>Email:</strong> ${contact.email}</p>
-            <p class="profile"><strong>Phone Number:</strong> ${contact.phone}</p>
-            <p class="profile"><strong>LinkedIn:</strong> <a href="${contact.linkedin}" target="_blank">${contact.linkedin}</a></p>
-            <p class="profile"><strong>GitHub:</strong> <a href="${contact.github}" target="_blank">${contact.github}</a></p>
-            <p class="profile"><strong>Website:</strong> <a href="${contact.website}" target="_blank">${contact.website}</a></p>
+            
             <div class="editBtn">
             <button class="editResume" onclick="editResume()">Edit Resume</button>
             </div>
-        </div>
+        
     `;
 
     // Hide the form and show the resume output
@@ -253,9 +352,9 @@ function editResume(): void {
 
     // Reset the form fields with current resume data
     const profileImagePreview = document.getElementById("profileImagePreview") as HTMLImageElement;
-    const name = document.querySelector(".javaName")?.textContent || '';
+    const name = document.querySelector(".nameHeading")?.textContent || '';
     const subheading = document.querySelector(".sub")?.textContent || '';
-    const profileSummary = document.querySelector(".profile")?.textContent || '';
+    const profileSummary = document.querySelector(".sizeChange")?.textContent || '';
 
     (document.getElementById("profileImage") as HTMLInputElement).value = '';
     profileImagePreview.src = '';
