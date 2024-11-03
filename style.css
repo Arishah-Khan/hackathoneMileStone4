@@ -112,7 +112,7 @@ button:active {
 
 img {
   max-width: 200px;
-  max-height: 200px;
+  max-height: 170px;
   border-radius: 50%;
   margin-bottom: 20px;
   border: 4px solid white; /* Thicker border around the image */
@@ -492,10 +492,7 @@ p a:hover {
   .sizeChange {
     font-size: 0.625rem; /* Further reduced font size */
   }
-  .img {
-    width: 130px;
-   
-  }
+
   .setWidth{
     font-size: 13px; 
     width: 90%;
