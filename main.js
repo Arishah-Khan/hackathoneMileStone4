@@ -28,7 +28,7 @@ function addMoreEducation() {
     <input type="text" class="institution" id="institution" placeholder="Institution (e.g., XYZ University)" required>
 
     <label for="gradeYear">Graduation Year:</label>
-    <input type="number" class="gradeYear" id="gradeYear" placeholder="Graduation Year (e.g., 2024)" required>
+    <input type="number" class="gradeYear" id="gradeYear" placeholder="Graduation Year (e.g., 2022 or 2022-2023)" pattern="^\d{4}(-\d{4})?$" title="Enter year in format: 2022 or 2022-2023" required>
 `;
     educationContainer.appendChild(educationField);
 }
@@ -45,7 +45,7 @@ function addMoreExperience() {
     <input type="text" class="role" id="role" placeholder="Role/Position (e.g., Software Developer)" required>
 
     <label for="experienceYears">Years Worked:</label>
-    <input type="number" class="experienceYears" id="experienceYears" placeholder="Years Worked (e.g., 2019-2022)" required>
+    <input type="number" class="experienceYears" id="experienceYears" placeholder="Years Worked (e.g., 2022 or 2022-2023)" pattern="^\d{4}(-\d{4})?$" title="Enter year in format: 2022 or 2022-2023" required>
 
     <label for="experienceDes">Experience Description:</label>
     <textarea id="experienceDes" placeholder="Summarize your experience at [Company Name] and describe your role." rows="4" required class="experienceDes"></textarea>
