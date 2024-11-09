@@ -13,12 +13,29 @@ function addMoreSkills(): void {
     skillsContainer.appendChild(skillField);
 }
 
-// Attach the event listener to the "Add Skill" button
+function addMoreLanguages(): void {
+
+    console.log("hello world")
+    const languagesContainer = document.getElementById("languagesContainer") as HTMLDivElement;
+
+    const languagesField = document.createElement("div");
+    languagesField.classList.add("languagesField");
+
+    languagesField.innerHTML = `
+        <input type="text" class="languages" placeholder="Enter Languages (e.g., English)" required>
+    `;
+
+    languagesContainer.appendChild(languagesField);
+}
+
 const addSkillButton = document.getElementById("addSkill") as HTMLButtonElement;
 if (addSkillButton) {
     addSkillButton.addEventListener("click", addMoreSkills);
 }
-
+const addLanguagesButton = document.getElementById("addLanguages") as HTMLButtonElement;
+if (addLanguagesButton) {
+    addLanguagesButton.addEventListener("click", addMoreLanguages);
+}
 
 
 // Function to add more education fields
@@ -89,6 +106,26 @@ function updateSkillsDisplay(): void {
          <div id="skillsContainer">
             <div class="skillField name">
             <input type="text" class="skill"  value="${skill.skillName}" placeholder="Skill Name (e.g., JavaScript)" id="skills">
+        </div>
+    `).join('');
+}
+
+function collectLanguages(): { languagesName: string }[] {
+    const languagesFields = document.querySelectorAll("#languagesContainer .languagesField"); // Update the selector
+    return Array.from(languagesFields).map(field => {
+        const languagesName = (field.querySelector(".languages") as HTMLInputElement)?.value || 'Not provided';
+        return { languagesName };
+    });
+}
+
+function updateLanguagesDisplay(): void {
+    const languagesContainer = document.getElementById("languagesContainer") as HTMLDivElement;
+    const languages = collectLanguages();
+
+    languagesContainer.innerHTML = languages.map(languages => `
+         <div id="languagesContainer">
+            <div class="languagesField name">
+            <input type="text" class="languages"  value="${languages.languagesName}" placeholder="Enter Languages (e.g., English)" id="languages">
         </div>
     `).join('');
 }
@@ -176,10 +213,11 @@ function collectEducation(): { degree: string; institution: string; gradeYear: s
 
 
 // Function to collect contact details
-function collectContactDetails(): { email: string; phone: string; linkedin: string; github: string; website: string } {
+function collectContactDetails(): { email: string; phone: string; linkedin: string; github: string; website: string ; address:string} {
     return {
         email: (document.getElementById("contactEmail") as HTMLInputElement).value,
         phone: (document.getElementById("contactPhone") as HTMLInputElement).value,
+        address: (document.getElementById("address") as HTMLInputElement).value,
         linkedin: (document.getElementById("linkedin") as HTMLInputElement).value,
         github: (document.getElementById("github") as HTMLInputElement).value,
         website: (document.getElementById("website") as HTMLInputElement).value
@@ -228,103 +266,116 @@ function generatedResume(event: Event): void {
 
     // Collect all other data
     const skills = collectSkills();
+    const languages = collectLanguages();
     const education = collectEducation();
     const experience = collectExperience();
     const contact = collectContactDetails();
 
     // Display the collected information in the resume output section
+    const mainHeading = document.getElementById("resume") as HTMLDivElement;
     const resumeOutput = document.getElementById("resumeOutput") as HTMLDivElement;
-    resumeOutput.innerHTML = `
-        <div class="container">
-        <div class="left">
-
-        <div>
-         ${profileImage ? `<div class="resume"><img src="${profileImage}" alt="Profile Image" style="max-width: 200px; height: auto; border-radius: 50%; margin-bottom: 20px;" class="img"></div>` : ''}</div>
-
-
-
-<div>
- <h3 class="setWidth">About Me</h3>
-            <p class="sizeChange">${profileSummary}</p>
-</div>
-
-
-<div>
-<h3 class="setWidth">Contact Information</h3>
-           <p class="sizeChange"><strong><i class="fas fa-envelope"></i> Email:</strong> ${contact.email}</p>
-<p class="sizeChange"><strong><i class="fas fa-phone"></i> Phone Number:</strong> ${contact.phone}</p>
-<p class="sizeChange"><strong><i class="fab fa-linkedin"></i> LinkedIn:</strong> <a href="${contact.linkedin}" target="_blank">${contact.linkedin}</a></p>
-<p class="sizeChange"><strong><i class="fab fa-github"></i> GitHub:</strong> <a href="${contact.github}" target="_blank">${contact.github}</a></p>
-<p class="sizeChange"><strong><i class="fas fa-globe"></i> Website:</strong> <a href="${contact.website}" target="_blank">${contact.website}</a></p>
-</div>
-
-            <div>
-                <h3 class="setWidth">Skills</h3>
-<p class="setDiv">
-  ${skills.map((skill, index) => `
-    <div class="skill-item">
-      <span class="circle"></span>
-      ${skill.skillName}
-      ${index < skills.length - 1 ? '<span class="line"></span>' : ''}
-    </div>
-  `).join('')}
-</p>   </div>
-
-
-         </div>
-         <div class="right">
-         <div class="bgColor">
-                <h3 class="nameHeading">${name}</h3>
-                <div class="styleline"></div>
-                <h5 class="sub">${subheading}</h5>
-            </div>
-            <div class="paddingSet">
-            <div>
-<h3 class="nameHeadingStyle">Education</h3>
-<div class="styleline"></div>
-
-        <div class="educationSection">
-                            ${education.map((item) => `
-                                <div class="educationField">
-                                <span class="diamond"></span>
-                                    <span class="degreeStyle">${item.degree}</span><br>
-                                    <span class="instituteStyle">${item.institution}</span><br>
-                                    <span class="instituteStyle">${item.gradeYear}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-</div>
-
-<div>
-                       <h3 class="nameHeadingStyle">Work Experience</h3>
-<div class="styleline"></div>
-
-<div class="educationSection">
-    ${experience.map((exp) => `
-        <div class="educationField">
-<span class="diamond"></span>
-            <span class="degreeStyle">${exp.company}</span><br>
-            <span class="instituteStyle">${exp.role}</span><br>
-            <span class="instituteStyle">${exp.experienceYears}</span><br>
-            <span class="instituteStyle">${exp.experienceDes}</span>
-
-        </div>
-    `).join('')}
-</div>
-
-
-            </div>
-         </div>
-            
-            </div>
-           </div>
     
-            
-            <div class="editBtn">
-            <button class="editResume" onclick="editResume()">Edit Resume</button>
+    // Ensure that the mainHeading exists before trying to set its content
+    if (mainHeading && resumeOutput) {
+      // Set the main heading text
+      mainHeading.innerHTML = "Your Resume is Ready! Edit Below";
+    
+      // Now set the resume content in resumeOutput
+      resumeOutput.innerHTML = `
+        <div class="container">
+          <div class="left">
+            <div>
+              ${profileImage ? `<div class="resume"><img src="${profileImage}" alt="Profile Image" style="max-width: 200px; height: auto; border-radius: 50%; margin-bottom: 20px;" class="img"></div>` : ''}
             </div>
-        
-    `;
+            
+            <div>
+              <h3 class="setWidth">About Me</h3>
+              <p class="sizeChange">${profileSummary}</p>
+            </div>
+    
+            <div>
+              <h3 class="setWidth">Contact Information</h3>
+              <p class="sizeChange"><strong><i class="fas fa-envelope"></i> Email:</strong> ${contact.email}</p>
+              <p class="sizeChange"><strong><i class="fas fa-phone"></i> Phone Number:</strong> ${contact.phone}</p>
+              <p class="sizeChange"><strong><i class="fas fa-regular fa-address-card"></i> Address:</strong> ${contact.address}</p>
+              <p class="sizeChange"><strong><i class="fab fa-linkedin"></i> LinkedIn:</strong> <a href="${contact.linkedin}" target="_blank">${contact.linkedin}</a></p>
+              <p class="sizeChange"><strong><i class="fab fa-github"></i> GitHub:</strong> <a href="${contact.github}" target="_blank">${contact.github}</a></p>
+              <p class="sizeChange"><strong><i class="fas fa-globe"></i> Website:</strong> <a href="${contact.website}" target="_blank">${contact.website}</a></p>
+            </div>
+    
+            <div>
+              <h3 class="setWidth">Skills</h3>
+              <p class="setDiv">
+                ${skills.map((skill) => `
+                  <div class="skill-item">
+                    <span class="circle"></span>
+                    ${skill.skillName}
+                  </div>
+                `).join('')}
+              </p>
+            </div>
+    
+            <div>
+              <h3 class="setWidth">Languages</h3>
+              <p class="setDiv">
+                ${languages.map((language) => `
+                  <div class="skill-item">
+                    <span class="circle"></span>
+                    ${language.languagesName}
+                  </div>
+                `).join('')}
+              </p>
+            </div>
+          </div>
+    
+          <div class="right">
+            <div class="bgColor">
+              <h3 class="nameHeading">${name}</h3>
+              <div class="styleline"></div>
+              <h5 class="sub">${subheading}</h5>
+            </div>
+            
+            <div class="paddingSet">
+              <div>
+                <h3 class="nameHeadingStyle">Education</h3>
+                <div class="styleline"></div>
+                <div class="educationSection">
+                  ${education.map((item) => `
+                    <div class="educationField">
+                      <span class="diamond"></span>
+                      <span class="degreeStyle">${item.degree}</span><br>
+                      <span class="instituteStyle">${item.institution}</span><br>
+                      <span class="instituteStyle">${item.gradeYear}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+    
+              <div>
+                <h3 class="nameHeadingStyle">Work Experience</h3>
+                <div class="styleline"></div>
+                <div class="educationSection">
+                  ${experience.map((exp) => `
+                    <div class="educationField">
+                      <span class="diamond"></span>
+                      <span class="degreeStyle">${exp.company}</span><br>
+                      <span class="instituteStyle">${exp.role}</span><br>
+                      <span class="instituteStyle">${exp.experienceYears}</span><br>
+                      <span class="instituteStyle">${exp.experienceDes}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="editBtn">
+          <button class="editResume" onclick="editResume()">Edit Resume</button>
+        </div>
+      `;
+    }
+    
 
     // Hide the form and show the resume output
     (document.getElementById("resumeForm") as HTMLFormElement).style.display = 'none';
